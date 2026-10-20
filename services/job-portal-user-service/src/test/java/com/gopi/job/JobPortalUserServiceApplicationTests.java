@@ -1,4 +1,4 @@
-package com.gopi.job.job_portal_user_service;
+package com.gopi.job;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

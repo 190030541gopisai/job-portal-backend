@@ -1,4 +1,4 @@
-package com.gopi.job.job_portal_user_service.controller;
+package com.gopi.job.controller;
 
 import com.gopi.job.domain.UserRole;
 import org.springframework.web.bind.annotation.GetMapping;
