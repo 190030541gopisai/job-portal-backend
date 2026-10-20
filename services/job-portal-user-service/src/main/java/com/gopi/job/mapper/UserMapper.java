@@ -5,6 +5,10 @@ import com.gopi.job.modal.User;
 
 public class UserMapper {
     public static UserResponse toDTO(User user) {
+        if(user == null){
+            return null;
+        }
+
         UserResponse dto = new UserResponse();
 
         dto.setId(user.getId());
