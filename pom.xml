@@ -17,6 +17,12 @@
     <name>job-portal-system</name>
     <description>AI-based Job Portal - Multi-Module Microservices System</description>
 
+    <modules>
+        <module>cloud</module>
+        <module>services</module>
+        <module>common-lib</module>
+    </modules>
+
     <properties>
         <java.version>25</java.version>
         <spring.boot.version>4.1.1</spring.boot.version>
