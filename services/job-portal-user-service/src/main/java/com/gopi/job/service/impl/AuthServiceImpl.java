@@ -8,8 +8,14 @@ import com.gopi.job.payload.AuthResponse;
 import com.gopi.job.payload.LoginRequest;
 import com.gopi.job.payload.SignupRequest;
 import com.gopi.job.repository.UserRepository;
+import com.gopi.job.security.CustomUserDetailsService;
+import com.gopi.job.security.JwtProvider;
 import com.gopi.job.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +26,8 @@ import java.time.LocalDateTime;
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     public AuthResponse signup(SignupRequest request) throws Exception{
@@ -43,10 +51,19 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepository.save(user);
 
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                user.getEmail(),
+                user.getPassword()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtProvider.generateToken(authentication, savedUser.getId());
+
         AuthResponse response = new AuthResponse();
         response.setTitle("welcome " + savedUser.getFullName());
         response.setMessage("Registered Successfully");
-        response.setJwt("jwt");
+        response.setJwt(jwt);
         response.setUser(UserMapper.toDTO(savedUser));
 
         return response;
