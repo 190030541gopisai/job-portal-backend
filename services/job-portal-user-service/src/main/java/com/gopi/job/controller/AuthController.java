@@ -1,6 +1,7 @@
 package com.gopi.job.controller;
 
 import com.gopi.job.payload.AuthResponse;
+import com.gopi.job.payload.LoginRequest;
 import com.gopi.job.payload.SignupRequest;
 import com.gopi.job.service.AuthService;
 import jakarta.validation.Valid;
@@ -22,5 +23,11 @@ public class AuthController {
     public ResponseEntity<AuthResponse> signup(@Valid @RequestBody SignupRequest signupRequest)
             throws Exception {
         return ResponseEntity.ok(authService.signup(signupRequest));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest)
+            throws Exception {
+        return ResponseEntity.ok(authService.login(loginRequest));
     }
 }

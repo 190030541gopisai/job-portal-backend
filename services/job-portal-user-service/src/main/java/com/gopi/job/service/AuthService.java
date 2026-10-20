@@ -6,5 +6,5 @@ import com.gopi.job.payload.SignupRequest;
 
 public interface AuthService {
     AuthResponse signup(SignupRequest request) throws Exception;
-    AuthResponse login(LoginRequest request);
+    AuthResponse login(LoginRequest request) throws Exception;
 }

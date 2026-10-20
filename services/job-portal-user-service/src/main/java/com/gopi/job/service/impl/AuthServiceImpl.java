@@ -70,7 +70,45 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse login(LoginRequest request) {
-        return null;
+    public AuthResponse login(LoginRequest request) throws Exception {
+        Authentication authentication = authenticate(
+                request.getEmail(),
+                request.getPassword()
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        User user = userRepository.findByEmail(request.getEmail());
+
+        String jwt = jwtProvider.generateToken(authentication, user.getId());
+
+        user.setLastLogin(LocalDateTime.now());
+        userRepository.save(user);
+
+        AuthResponse response = new AuthResponse();
+        response.setTitle("welcome back -- " + user.getFullName());
+        response.setMessage("Login Successfully");
+        response.setJwt(jwt);
+        response.setUser(UserMapper.toDTO(user));
+
+        return response;
+    }
+
+    private Authentication authenticate(String email, String password) throws Exception {
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+
+        if(userDetails == null) {
+            throw new Exception("user not found with email " + email);
+        }
+
+        if(!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new Exception("Invalid password");
+        }
+
+        return new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities()
+        );
     }
 }
