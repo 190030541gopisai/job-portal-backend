@@ -17,6 +17,6 @@
     <description>Business Service Modules</description>
 
     <modules>
-
+        <module>job-portal-user-service</module>
     </modules>
 </project>
