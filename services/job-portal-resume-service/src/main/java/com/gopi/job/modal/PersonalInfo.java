@@ -1,0 +1,27 @@
+package com.gopi.job.modal;
+
+import jakarta.persistence.Embeddable;
+import lombok.*;
+
+@Embeddable
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class PersonalInfo {
+    private String firstName;
+    private String lastName;
+
+    private String headline; // Ex: Full Stack Developer
+
+    private String email;
+    private String phone;
+    private String city;
+    private String country;
+
+    private String linkedinUrl;
+    private String githubUrl;
+    private String portfolioUrl;
+    private String websiteUrl;
+}
