@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>job-portal-preferences</artifactId>
+    <artifactId>job-portal-preferences-service</artifactId>
     <name>job-portal-preferences</name>
     <description>Service for managing candidate job preferences like saved jobs</description>
    

@@ -3,7 +3,7 @@ server:
   port: 5006
 spring:
   application:
-    name: job-portal-preferences
+    name: job-portal-preferences-service
   jpa:
     hibernate:
       ddl-auto: update
