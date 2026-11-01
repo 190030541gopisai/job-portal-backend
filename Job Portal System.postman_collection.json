@@ -1,0 +1,1015 @@
+{
+	"info": {
+		"_postman_id": "05f73d2c-546d-4934-b53d-af36d7a756f3",
+		"name": "Job Portal System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36256363"
+	},
+	"item": [
+		{
+			"name": "User service",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Raam\",\n    \"email\": \"raam2@gmail.com\",\n    \"password\": \"12345678\",\n    \"role\": \"ROLE_EMPLOYER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"raam@gmail.com\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-User-Email",
+								"value": "raam@gmail.com",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5001/api/users/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Suspend User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5001/api/users/6/suspend",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"users",
+								"6",
+								"suspend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5001/api/users/6/activate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"users",
+								"6",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5001/api/users/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company Service",
+			"item": [
+				{
+					"name": "Create Company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Zosh Technologies Pvt Ltd\",\n  \"tagline\": \"Building scalable microservices & modern web apps\",\n  \"description\": \"Zosh Technologies is a software company focused on building high-performance, scalable microservices architectures, SaaS platforms, and developer-focused products.\",\n  \"logoUrl\": \"https://cdn.zosh.com/logo.png\",\n  \"coverImageUrl\": \"https://cdn.zosh.com/cover.jpg\",\n  \"website\": \"https://www.zosh.com\",\n  \"email\": \"contact@zosh.com\",\n  \"phone\": \"+91-9876543210\",\n  \"foundedYear\": 2020,\n  \"companySize\": \"SMALL\",\n  \"companyType\": \"PRIVATE\",\n  \"industryType\": \"TECHNOLOGY\",\n  \"registrationNumber\": \"U72900GJ2020PTC123456\",\n  \"socialLinks\": [\n    {\n      \"platform\": \"LINKEDIN\",\n      \"url\": \"https://linkedin.com/company/zosh-technologies\"\n    },\n    {\n      \"platform\": \"TWITTER\",\n      \"url\": \"https://twitter.com/zoshtech\"\n    },\n    {\n      \"platform\": \"INSTAGRAM\",\n      \"url\": \"https://instagram.com/zoshtech\"\n    },\n    {\n      \"platform\": \"FACEBOOK\",\n      \"url\": \"https://facebook.com/zoshtech\"\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5002/api/companies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"api",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Company",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5002/api/companies/1/verify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"api",
+								"companies",
+								"1",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5002/api/companies/1/deactivate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5002",
+							"path": [
+								"api",
+								"companies",
+								"1",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Job Service",
+			"item": [
+				{
+					"name": "Job Category",
+					"item": [
+						{
+							"name": "Create Job Category",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Software De2vel2opment\",\n  \"description\": \"Jobs related to software engineering, backend, frontend, and full-stack development.\",\n  \"iconUrl\": \"https://cdn.zosh.com/icons/software-development.png\",\n  \"parentId\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5003/api/job-categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"api",
+										"job-categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Job Categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5003/api/job-categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"api",
+										"job-categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Job Tags",
+					"item": [
+						{
+							"name": "Create Job Tag",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"AI/ML\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5003/api/job-tags",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"api",
+										"job-tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Jobs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5003/api/job-tags",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"api",
+										"job-tags"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Job Skills",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create New Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Senior Java Backend Developer\",\n    \"description\": \"We are looking for a skilled backend developer to build scalable microservices using Spring Boot and Kafka.\",\n    \"requirements\": \"5+ years experience in Java, Spring Boot, Microservices, Docker, Kubernetes, Kafka\",\n    \"responsibilities\": \"Design APIs, build microservices, optimize performance, collaborate with frontend team\",\n    \"benefits\": \"Health insurance, flexible working hours, remote work options\",\n    \n    \"categoryId\": 102,\n    \"skillIds\": [\n        2\n    ],\n    \"tagIds\": [\n        1\n    ],\n\n\n    \"address\": \"Rajkot IT Park\",\n    \"city\": \"Rajkot\",\n    \"state\": \"Gujarat\",\n    \"country\": \"India\",\n    \"zipCode\": \"360001\",\n\n    \"minSalary\": 800000,\n    \"maxSalary\": 1800000,\n   \n    \"jobType\": \"FULL_TIME\",\n    \"workMode\": \"HYBRID\",\n    \"experienceLevel\": \"SENIOR_LEVEL\",\n   \n    \"openings\": 3,\n   \n    \"applicationDeadline\": \"2026-10-30\",\n    \"expiresAt\": \"2026-12-15\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5003/api/jobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5003",
+							"path": [
+								"api",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5003/api/jobs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5003",
+							"path": [
+								"api",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Job",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5003/api/jobs/53/publish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5003",
+							"path": [
+								"api",
+								"jobs",
+								"53",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resume Service",
+			"item": [
+				{
+					"name": "Work Experience",
+					"item": [
+						{
+							"name": "Create Work Experience",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"companyName\": \"Infosys\",\n  \"companyLogoUrl\": \"https://www.infosys.com/content/dam/infosys-web/en/global-resource/18/infosys-logo-PNG.png\",\n  \"jobTitle\": \"Full Stack Developer\",\n  \"employmentType\": \"FULL_TIME\",\n  \"location\": \"Hyderabad, India\",\n  \"startDate\": \"2023-06-01\",\n  \"endDate\": null,\n  \"isCurrentJob\": true,\n  \"description\": \"Developed and maintained scalable web applications using Spring Boot and React. Designed REST APIs, integrated databases, and improved application performance.\",\n  \"technologies\": [\n    \"Java\",\n    \"Spring Boot\",\n    \"React\",\n    \"PostgreSQL\",\n    \"Docker\",\n    \"Git\"\n  ],\n  \"displayOrder\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5004/api/resumes/4/work-experiences",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5004",
+									"path": [
+										"api",
+										"resumes",
+										"4",
+										"work-experiences"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Education",
+					"item": [
+						{
+							"name": "Add Education",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"institutionName\": \"JNTU Hyderabad\",\n  \"degree\": \"Bachelor of Technology (B.Tech)\",\n  \"fieldOfStudy\": \"Computer Science and Engineering\",\n  \"grade\": \"8.5 CGPA\",\n  \"startDate\": \"2019-07-01\",\n  \"endDate\": \"2023-05-31\",\n  \"isCurrentlyStudying\": false,\n  \"description\": \"Studied computer science fundamentals, data structures, algorithms, database management systems, and software engineering. Developed academic projects using Java and web technologies.\",\n  \"displayOrder\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5004/api/resumes/4/educations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5004",
+									"path": [
+										"api",
+										"resumes",
+										"4",
+										"educations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Skills",
+					"item": [
+						{
+							"name": "Add Skills",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"skillName\": \"Java\",\n  \"proficiencyLevel\": \"ADVANCED\",\n  \"yearsOfExperience\": 3,\n  \"displayOrder\": 1\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5004/api/resumes/4/skills",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5004",
+									"path": [
+										"api",
+										"resumes",
+										"4",
+										"skills"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Projects",
+					"item": [
+						{
+							"name": "Add Project",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Job Portal Application\",\n  \"description\": \"Developed a full-stack job portal application where users can search for jobs, apply for positions, and manage their profiles. Recruiters can post jobs and manage applications.\",\n  \"technologies\": [\n    \"Java\",\n    \"Spring Boot\",\n    \"React\",\n    \"PostgreSQL\",\n    \"Spring Security\",\n    \"JWT\",\n    \"Docker\"\n  ],\n  \"projectUrl\": \"https://jobportal.example.com\",\n  \"sourceCodeUrl\": \"https://github.com/gopikrishna/job-portal\",\n  \"startDate\": \"2025-01-01\",\n  \"endDate\": \"2025-06-30\",\n  \"isOngoing\": false,\n  \"displayOrder\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5004/api/resumes/4/projects",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5004",
+									"path": [
+										"api",
+										"resumes",
+										"4",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Languages",
+					"item": [
+						{
+							"name": "Add Language",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"languageName\": \"English\",\n  \"proficiency\": \"FLUENT\",\n  \"displayOrder\": 1\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5004/api/resumes/4/languages",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5004",
+									"path": [
+										"api",
+										"resumes",
+										"4",
+										"languages"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Resume",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Java Full Stack Developer\",\n    \"template\": \"PROFESSIONAL\",\n    \"visibility\": \"PUBLIC\",\n    \"isDefault\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5004/api/resumes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5004",
+							"path": [
+								"api",
+								"resumes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Personal Information",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"firstName\": \"Rahul\",\n  \"lastName\": \"Sharma\",\n  \"headline\": \"Full Stack Developer\",\n  \"email\": \"rahul.sharma@example.com\",\n  \"phone\": \"+91 9876543210\",\n  \"city\": \"Hyderabad\",\n  \"country\": \"India\",\n  \"linkedinUrl\": \"https://www.linkedin.com/in/rahul-sharma\",\n  \"githubUrl\": \"https://github.com/rahulsharma\",\n  \"portfolioUrl\": \"https://rahulsharma.dev\",\n  \"websiteUrl\": \"https://www.rahulsharma.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5004/api/resumes/4/personal-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5004",
+							"path": [
+								"api",
+								"resumes",
+								"4",
+								"personal-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Resumes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5004/api/resumes/my",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5004",
+							"path": [
+								"api",
+								"resumes",
+								"my"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Application Service",
+			"item": [
+				{
+					"name": "New Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"jobId\": 53,\n  \"resumeId\": 4,\n  \"coverLetter\": \"I am very interested in this role and believe my experience in Spring Boot and microservices makes me a strong candidate.\",\n  \"expectedSalary\": 1200000,\n  \"expectedSalaryCurrency\": \"INR\",\n  \"availableFrom\": \"2026-03-15\",\n  \"source\": \"DIRECT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5005/api/applications",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"api",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Application Note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"Your application is under review\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5005/api/applications/1/notes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"api",
+								"applications",
+								"1",
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5005/api/applications/my",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5005",
+							"path": [
+								"api",
+								"applications",
+								"my"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Preferences Service",
+			"item": [
+				{
+					"name": "Saved Jobs",
+					"item": [
+						{
+							"name": "saved job",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"jobId\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5006/api/preferences/saved-jobs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5006",
+									"path": [
+										"api",
+										"preferences",
+										"saved-jobs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch My Saved Jobs",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5006/api/preferences/saved-jobs",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5006",
+									"path": [
+										"api",
+										"preferences",
+										"saved-jobs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unsave Job",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "X-User-Id",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5006/api/preferences/saved-jobs/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5006",
+									"path": [
+										"api",
+										"preferences",
+										"saved-jobs",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
