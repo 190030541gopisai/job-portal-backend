@@ -3,3 +3,10 @@ spring:
     name: job-portal-ai-service
   config:
     import: "configserver:http://localhost:8888"
+
+gemini:
+  api:
+    key: ${GOOGLE_API_KEY:Your-Api-Key}
+    model: gemini-3.5-flash-lite
+    max-output-tokens: 2048
+    temperature: 0.7
