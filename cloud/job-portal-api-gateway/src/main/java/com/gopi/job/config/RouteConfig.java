@@ -115,6 +115,15 @@ public class RouteConfig {
                 .build();
     }
 
+    @Bean
+    public RouterFunction<ServerResponse> aiServiceRoutes() {
+        return GatewayRouterFunctions.route("ai-service-routes")
+                .route(RequestPredicates.path("/api/ai/**"), HandlerFunctions.http())
+                .filter(LoadBalancerFilterFunctions.lb("job-portal-ai-service"))
+                .before(this::jwtAuthFilter)
+                .build();
+    }
+
     private ServerRequest jwtAuthFilter(ServerRequest request) {
         String authHeader = request.headers()
                 .firstHeader(JwtConstant.JWT_HEADER);
