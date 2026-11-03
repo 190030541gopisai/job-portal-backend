@@ -70,21 +70,32 @@
 				{
 					"name": "Profile",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-User-Email",
 								"value": "raam@gmail.com",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5001/api/users/profile",
+							"raw": "http://localhost:5000/api/users/profile",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5001",
+							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -97,6 +108,16 @@
 				{
 					"name": "Get All Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -439,6 +460,16 @@
 				{
 					"name": "Get All Jobs",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -448,12 +479,12 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5003/api/jobs",
+							"raw": "http://localhost:5000/api/jobs",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "5003",
+							"port": "5000",
 							"path": [
 								"api",
 								"jobs"
@@ -955,21 +986,32 @@
 						{
 							"name": "Fetch My Saved Jobs",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [
 									{
 										"key": "X-User-Id",
 										"value": "1",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"url": {
-									"raw": "http://localhost:5006/api/preferences/saved-jobs",
+									"raw": "http://localhost:5000/api/preferences/saved-jobs",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "5006",
+									"port": "5000",
 									"path": [
 										"api",
 										"preferences",
@@ -1008,6 +1050,690 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+				{
+			"name": "Ai Service",
+			"item": [
+				{
+					"name": "Resume",
+					"item": [
+						{
+							"name": "Generate Summary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"targetJobTitle\": \"Java Backend Developer\",\n  \"workExperiences\": [\n    {\"jobTitle\": \"Java Developer\", \"company\": \"ABC Technologies\", \"description\": \"Developed REST APIs using Java, Spring Boot, and Hibernate.\"},\n    {\"jobTitle\": \"Software Developer Intern\", \"company\": \"XYZ Solutions\", \"description\": \"Worked on backend development using Java and Spring Boot.\"}\n  ],\n  \"skills\": [\"Java\", \"Spring Boot\", \"Spring MVC\", \"Hibernate\", \"JPA\", \"REST API\", \"MySQL\", \"PostgreSQL\", \"JWT Authentication\", \"Microservices\", \"Git\", \"Maven\"],\n  \"educations\": [\n    {\"degree\": \"Bachelor of Technology\", \"fieldOfStudy\": \"Computer Science and Engineering\", \"institutionName\": \"ABC Institute of Technology\"}\n  ],\n  \"yearOfExperience\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/resume/summary",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"resume",
+										"summary"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Experience Bullets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"jobTitle\": \"Java Backend Developer\",\n  \"company\": \"ABC Technologies\",\n  \"rawDescription\": \"Worked on backend application development using Java and Spring Boot. Developed REST APIs for user authentication, employee management, and product management.\",\n  \"achievementsHint\": \"Improved API response time by 30%, developed 15+ REST API endpoints, implemented secure JWT authentication.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/resume/experience-bullets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"resume",
+										"experience-bullets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Resume Improvements",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"resumeContent\": \"Java Backend Developer with 2 years of experience in Spring Boot and REST APIs. Skills: Java, Spring Boot, MySQL, Git.\",\n  \"targetJobTitle\": \"Senior Java Backend Developer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/resume/improvements",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"resume",
+										"improvements"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Career Feedback",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"resumeContent\": \"Java Backend Developer with 2 years of experience in Spring Boot and REST APIs. Skills: Java, Spring Boot, MySQL, Git.\",\n  \"targetJobTitle\": \"Software Architect\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/resume/career-feedback",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"resume",
+										"career-feedback"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Job",
+					"item": [
+						{
+							"name": "Generate Description",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Java Backend Developer\",\n  \"skills\": [\"Java\", \"Spring Boot\", \"Spring MVC\", \"Hibernate\", \"Spring Data JPA\", \"MySQL\", \"PostgreSQL\", \"REST API\", \"Microservices\", \"JWT Authentication\", \"Git\", \"Maven\"],\n  \"experienceLevel\": \"MID\",\n  \"jobType\": \"FULL_TIME\",\n  \"workMode\": \"HYBRID\",\n  \"category\": \"Software Development\",\n  \"additionalContext\": \"Looking for a Java Backend Developer with strong experience in REST APIs and microservices.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/job/describe",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"job",
+										"describe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Job Requirements",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/ai/job/requirements?title=Java Backend Developer&category=Software Development",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"job",
+										"requirements"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Java Backend Developer"
+										},
+										{
+											"key": "category",
+											"value": "Software Development"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Salary Suggestion",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Java Backend Developer\",\n  \"skills\": [\"Java\", \"Spring Boot\", \"Microservices\", \"PostgreSQL\"],\n  \"experienceLevel\": \"MID\",\n  \"jobType\": \"FULL_TIME\",\n  \"location\": \"Hyderabad, India\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/job/salary-suggestion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"job",
+										"salary-suggestion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Skills Recommendation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/ai/job/skills-recommendation?title=Java Backend Developer&category=Software Development",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"job",
+										"skills-recommendation"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Java Backend Developer"
+										},
+										{
+											"key": "category",
+											"value": "Software Development"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Job Benefits",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/ai/job/benefits?title=Java Backend Developer&category=Software Development&jobType=FULL_TIME",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"job",
+										"benefits"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Java Backend Developer"
+										},
+										{
+											"key": "category",
+											"value": "Software Development"
+										},
+										{
+											"key": "jobType",
+											"value": "FULL_TIME"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tags Recommendation",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:6000/api/ai/job/tags-recommendation?title=Java Backend Developer&description=Looking for a backend developer with microservices experience",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"job",
+										"tags-recommendation"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "Java Backend Developer"
+										},
+										{
+											"key": "description",
+											"value": "Looking for a backend developer with microservices experience"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Application",
+					"item": [
+						{
+							"name": "Generate Cover Letter",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"jobTitle\": \"Java Backend Developer\",\n  \"jobDescription\": \"Build scalable microservices using Spring Boot and Kafka.\",\n  \"candidateName\": \"Rahul Sharma\",\n  \"candidateSummary\": \"Experienced Java developer with 3 years in Spring Boot and REST APIs.\",\n  \"candidateSkills\": [\"Java\", \"Spring Boot\", \"Microservices\", \"PostgreSQL\", \"Docker\"],\n  \"candidateExperience\": [\"Java Developer at ABC Technologies - 2 years\", \"Intern at XYZ Solutions - 6 months\"],\n  \"targetCompanyName\": \"Zosh Technologies\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/application/cover-letter",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"application",
+										"cover-letter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Screening Score",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"jobTitle\": \"Java Backend Developer\",\n  \"experienceLevel\": \"MID\",\n  \"requiredSkills\": [\"Java\", \"Spring Boot\", \"Microservices\", \"PostgreSQL\", \"Docker\"],\n  \"responsibilities\": \"Design and build REST APIs, maintain microservices.\",\n  \"candidateSummary\": \"Java developer with 3 years experience in Spring Boot.\",\n  \"candidateSkills\": [\"Java\", \"Spring Boot\", \"MySQL\", \"Git\", \"Maven\"],\n  \"candidateExperience\": [\"Java Developer at ABC Technologies - 2 years\", \"Intern at XYZ Solutions - 6 months\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/application/screening-core",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"application",
+										"screening-core"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Skills Gap Analysis",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"jobTitle\": \"Java Backend Developer\",\n  \"candidateSkills\": [\"Java\", \"Spring Boot\", \"MySQL\", \"Git\"],\n  \"requiredSkills\": [\"Java\", \"Spring Boot\", \"Microservices\", \"PostgreSQL\", \"Docker\", \"Kafka\", \"Kubernetes\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai/application/skills-gap",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai",
+										"application",
+										"skills-gap"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "Enhance Search",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"query\": \"java backend remote job with good pay\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai-search/enhance",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai-search",
+										"enhance"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Job Alert Suggestion",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"skills\": [\"Java\", \"Spring Boot\", \"Microservices\", \"PostgreSQL\"],\n  \"experienceLevel\": \"MID\",\n  \"previousJobTitles\": [\"Java Developer\", \"Backend Developer\"],\n  \"educations\": [\"Bachelor of Technology in Computer Science\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:6000/api/ai-search/alert-suggestion",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "6000",
+									"path": [
+										"api",
+										"ai-search",
+										"alert-suggestion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test Gemini Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-User-Id",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:6000/api/ai/hi how are you",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "6000",
+							"path": [
+								"api",
+								"ai",
+								"hi how are you"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
