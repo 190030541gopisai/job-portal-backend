@@ -32,4 +32,22 @@ build/
 ### VS Code ###
 .vscode/
 
-.idea
+### Environment Variables ###
+.env
+.env.*
+!.env.example
+!.env.sample
+
+### Secrets and Credentials ###
+application-secret.properties
+application-secret.yml
+application-secret.yaml
+secrets/
+*.pem
+*.key
+*.p12
+*.jks
+
+### Logs ###
+*.log
+logs/
