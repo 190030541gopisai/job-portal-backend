@@ -1,19 +1,204 @@
 services:
-  job-portal-db:
-    image: postgres:17
-    container_name: job-portal-db
+
+  # ─── Infrastructure ───────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: job-portal-postgres
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - job-portal-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  # ─── Cloud Services ───────────────────────────────────────────────
+  service-registry:
+    image: gopi/job-portal-service-registry:latest
+    container_name: job-portal-service-registry
+    ports:
+      - "8761:8761"
+    networks:
+      - job-portal-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+
+  config-server:
+    image: gopi/job-portal-config-server:latest
+    container_name: job-portal-config-server
+    ports:
+      - "8888:8888"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+
+  api-gateway:
+    image: gopi/job-portal-api-gateway:latest
+    container_name: job-portal-api-gateway
+    ports:
+      - "5000:5000"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      config-server:
+        condition: service_healthy
+
+  # ─── Microservices ────────────────────────────────────────────────
+  user-service:
+    image: gopi/job-portal-user-service:latest
+    container_name: job-portal-user-service
+    ports:
+      - "5001:5001"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job_portal_user
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  company-service:
+    image: gopi/job-portal-company-service:latest
+    container_name: job-portal-company-service
+    ports:
+      - "5002:5002"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job_portal_company
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  job-service:
+    image: gopi/job-portal-job-service:latest
+    container_name: job-portal-job-service
+    ports:
+      - "5003:5003"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job_portal_job
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  resume-service:
+    image: gopi/job-portal-resume-service:latest
+    container_name: job-portal-resume-service
+    ports:
+      - "5004:5004"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job_portal_resume
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  application-service:
+    image: gopi/job-portal-application-service:latest
+    container_name: job-portal-application-service
+    ports:
+      - "5005:5005"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job_portal_application
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  preferences-service:
+    image: gopi/job-portal-preferences-service:latest
+    container_name: job-portal-preferences-service
+    ports:
+      - "5006:5006"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/job_portal_preferences
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+    networks:
+      - job-portal-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  ai-service:
+    image: gopi/job-portal-ai-service:latest
+    container_name: job-portal-ai-service
+    ports:
+      - "6000:6000"
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-registry:8761/eureka/
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+    networks:
+      - job-portal-network
+    depends_on:
+      config-server:
+        condition: service_healthy
+
+networks:
+  job-portal-network:
+    driver: bridge
+
 volumes:
-  db-data:
+  postgres_data:
