@@ -18,6 +18,7 @@ import java.util.List;
 public class JobSkillController {
     private final JobSkillService jobSkillService;
 
+    @PostMapping
     public ResponseEntity<JobSkillResponse> createSkill(
             @Valid @RequestBody JobSkillRequest jobSkillRequest
     ) throws Exception {
