@@ -31,6 +31,9 @@ public class JobRequest {
     private String responsibilities;
     private String benefits;
 
+    @NotNull(message = "Company Id is required")
+    private Long companyId;
+
     private ExperienceLevel experienceLevel;
 
     @NotNull(message = "Category is required")

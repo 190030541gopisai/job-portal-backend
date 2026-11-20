@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/ai-search")
+@RequestMapping("/api/ai/search")
 public class AiSearchController {
 
     private final SearchAiService searchAiService;

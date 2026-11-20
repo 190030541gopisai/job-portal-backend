@@ -1,5 +1,6 @@
 package com.gopi.job.service.impl;
 
+import com.gopi.job.client.CompanyClient;
 import com.gopi.job.domain.JobStatus;
 import com.gopi.job.dto.CompanyResponse;
 import com.gopi.job.dto.JobRequest;
@@ -36,6 +37,7 @@ public class JobServiceImpl implements JobService {
     private final JobCategoryService jobCategoryService;
     private final JobSkillService jobSkillService;
     private final JobTagService jobTagService;
+    private final CompanyClient companyClient;
 
     @Override
     public JobResponse createJob(Long employerId, JobRequest request) throws Exception {
@@ -50,7 +52,9 @@ public class JobServiceImpl implements JobService {
                 jobTagService.getTagsByIds(request.getTagIds()):
                 Collections.emptySet();
 
-        Long companyId = 1L;
+        CompanyResponse companyResponse = companyClient.getCompanyById(request.getCompanyId());
+
+        Long companyId = companyResponse.getId();
 
         Job job = Job.builder()
                 .title(request.getTitle())

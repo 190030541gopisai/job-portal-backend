@@ -176,6 +176,8 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = getCompanyEntityById(companyId);
         assertOwner(company, ownerId);
         companyRepository.deleteById(companyId);
+
+        // Todo: delete corresponding jobs
     }
 
     private void assertOwner(Company company, Long ownerId) throws Exception {
@@ -189,6 +191,7 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = getCompanyEntityById(companyId);
 
         company.setStatus(CompanyStatus.SUSPENDED);
+        company.setActive(false);
 
         return CompanyMapper.toResponse(companyRepository.save(company));
     }

@@ -43,6 +43,7 @@ public class CompanyMapper {
                 .socialLinks(socialLinks)
                 .createdAt(company.getCreatedAt())
                 .updatedAt(company.getUpdatedAt())
+                .registrationNumber(company.getRegistrationNumber())
                 .build();
 
     }

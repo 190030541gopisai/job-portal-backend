@@ -16,7 +16,7 @@ public interface ApplicationService {
             CreateApplicationRequest req
     ) throws Exception;
 
-    ApplicationResponse getApplicationById(Long id);
+    ApplicationResponse getApplicationById(Long id) throws Exception;
 
     List<ApplicationResponse> getMyApplications(Long candidateId);
 

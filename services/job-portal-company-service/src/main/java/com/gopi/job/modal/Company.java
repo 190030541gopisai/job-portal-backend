@@ -56,8 +56,10 @@ public class Company {
     @Enumerated(EnumType.STRING)
     private IndustryType industryType;
 
-    private CompanyStatus status;
+    @Builder.Default
+    private CompanyStatus status = CompanyStatus.PENDING_VERIFICATION;
 
+    @Builder.Default
     private boolean isVerified = false;
 
     @Column(unique = true)
@@ -67,8 +69,10 @@ public class Company {
     private Long ownerId;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
     private List<SocialLink> socialLinks = new ArrayList<>();
 
+    @Builder.Default
     private Boolean active = true;
 
     @Column(nullable = false, updatable = false)
