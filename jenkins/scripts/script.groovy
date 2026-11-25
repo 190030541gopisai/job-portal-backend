@@ -9,6 +9,7 @@ def buildApp() {
 
 def testApp() {
     echo 'Testing the code...'
+    echo "Executing in branch $BRANCH_NAME"
 }
 
 def deployApp() {
