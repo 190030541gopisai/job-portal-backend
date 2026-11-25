@@ -1,6 +1,6 @@
 def buildApp() {
     echo 'Building the code...'
-    withCredentials([usernamePassword(credentials: '26ff7b4f-02e5-4807-ab0b-ae142d2a2c50', 
+    withCredentials([usernamePassword(credentialsId: '26ff7b4f-02e5-4807-ab0b-ae142d2a2c50', 
     passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         echo "$USER"
         echo "$PASS"
